@@ -4,16 +4,33 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+ /**
+ * Esta classe foi criada para a licao de Sistemas de Informacao do Professor Carlos Euzebio
+ */
 public class Rsa_criptografia {
 
     public static void main(String[] args) {
+        /**
+        * JOptionPane e uma biblioteca nativa do Java para mostrar uma combo box, um dialog, uma modal (ha varios nomes),
+        * e usaremos muito ela para ficar intuitivo e mais bonito.
+        * Optamos por utilizar a JOptionPane ao inves do JAVAFX por ser mais facil
+         */
 
         JOptionPane.showMessageDialog(null, "Bem vindo ao trabalho de criptografia RSA", "SISTEMAS DA INFORMAÇÃO", -1);
 
-        String msgcifrada;
-        String msgdecifrada;
+        /**
+        * Aqui inicializamos as variaveis necessarias.
+        */
+        String msgcifrada; // Aqui guardaremos a mensagem ja criptografada
+        String msgdecifrada; // Aqui guardaremos a mensagem descriptografada
         BigInteger n, d, e;
         int bitlen = 2048;
+        /**
+        * JTextArea e uma biblioteca nativa do Java para criar um component de texto.
+        * Aqui criamos um com 10 linhas e 20 colunas que ira automaticamente quebrar a palavra
+        * em novas linhas caso passem de 20 colunas. E nos deixamos como read only
+        * ou seja so pode ler e nao editar a mensagem
+        */
         JTextArea component = new JTextArea(10, 20);
         component.setWrapStyleWord(true);
         component.setLineWrap(true);
@@ -40,12 +57,17 @@ public class Rsa_criptografia {
         // d seja inverso multiplicativo de "e"
         d = e.modInverse(m);
 
-        String opcaoUsuario = ObterOpcaoUsuario();
+        /**
+        * Aqui chamamos a funcao ObterOpcaoUsuario que e nossa funcao para mostrar e capturar uma string contendo 
+        * a opcao desejada pelo usuario, ja transformada em um inteiro
+        */
+        int opcaoUsuario = ObterOpcaoUsuario();
 
-        int opcaoConvertida = Integer.parseInt(opcaoUsuario);
-
-        while (opcaoConvertida != 0) {
-            switch (opcaoConvertida) {
+        /**
+        * Aqui utilizamos o loop while para manter o usuario no nosso menu.
+        */
+        while (opcaoUsuario != 0) {
+            switch (opcaoUsuario) {
 
                 case 1:
                     String msg = JOptionPane.showInputDialog("Escreva a mensagem a ser criptografada");
@@ -56,7 +78,6 @@ public class Rsa_criptografia {
 
                     JOptionPane.showMessageDialog(null, new JScrollPane(component), "MENSAGEM CIFRADA", JOptionPane.INFORMATION_MESSAGE);
                     opcaoUsuario = ObterOpcaoUsuario();
-                    opcaoConvertida = Integer.parseInt(opcaoUsuario);
 
                     break;
 
@@ -66,7 +87,6 @@ public class Rsa_criptografia {
                     msgdecifrada = new String(new BigInteger(decript).modPow(d, n).toByteArray());
                     JOptionPane.showMessageDialog(null, "Mensagem decifrada: " + msgdecifrada);
                     opcaoUsuario = ObterOpcaoUsuario();
-                    opcaoConvertida = Integer.parseInt(opcaoUsuario);
 
                     break;
 
@@ -77,14 +97,12 @@ public class Rsa_criptografia {
                     JOptionPane.showMessageDialog(null, new JScrollPane(component), "VARIAVEIS", JOptionPane.INFORMATION_MESSAGE);
 
                     opcaoUsuario = ObterOpcaoUsuario();
-                    opcaoConvertida = Integer.parseInt(opcaoUsuario);
 
                     break;
 
                 default:
                     JOptionPane.showConfirmDialog(null, "Insira uma opcao valida por favor!", "OPCAO INVALIDA", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
                     opcaoUsuario = ObterOpcaoUsuario();
-                    opcaoConvertida = Integer.parseInt(opcaoUsuario);
 
             }
 
@@ -92,8 +110,8 @@ public class Rsa_criptografia {
 
     }
 
-    static String ObterOpcaoUsuario() {
+    static Integer ObterOpcaoUsuario() {
         String opcaoUsuario = JOptionPane.showInputDialog("Escolha a opcao:\n 1 - Criptografar \n 2 - Descriptografar \n 3 - Mostrar variáveis \n 0 - Sair ");
-        return opcaoUsuario;
+        return Integer.parseInt(opcaoUsuario);
     }
 }
