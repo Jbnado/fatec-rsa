@@ -101,7 +101,7 @@ public class Rsa_criptografia {
                     break;
 
                 default:
-                    JOptionPane.showConfirmDialog(null, "Insira uma opcao valida por favor!", "OPCAO INVALIDA", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Insira uma opcao valida por favor!", "OPCAO INVALIDA", JOptionPane.ERROR_MESSAGE);
                     opcaoUsuario = ObterOpcaoUsuario();
 
             }
