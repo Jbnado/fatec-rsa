@@ -23,7 +23,7 @@ public class Rsa_criptografia {
         */
         String msgcifrada; // Aqui guardaremos a mensagem ja criptografada
         String msgdecifrada; // Aqui guardaremos a mensagem descriptografada
-        BigInteger n, d, e;
+        BigInteger n, d, e; 
         int bitlen = 2048;
         /**
         * JTextArea e uma biblioteca nativa do Java para criar um component de texto.
@@ -37,12 +37,22 @@ public class Rsa_criptografia {
         component.setCaretPosition(0);
         component.setEditable(false);
 
-        //Escolha de forma aleatória dois números primos grandes p e q
+        /**
+        * SecureRandom e uma classe que gera um numero aleatorio para nos,
+        * Usamos entao a classe BigInteger para criar um numero inteiro positivo e provavelmente primo
+        * Seu tamanho deve ser de 1024 bits
+        * E temos uma certeza de 100 que sera um primo utilizando o r que e nosso numero random
+        * E assim temos dois numeros randomicos primos de 1024 bits de tamanho.
+        */
         SecureRandom r = new SecureRandom();
         BigInteger p = new BigInteger(bitlen / 2, 100, r);
         BigInteger q = new BigInteger(bitlen / 2, 100, r);
 
-        //Compute n = p * q
+        /**
+        * Aqui utilizamos o metodo multiply do BigInteger
+        * Que gera o numero da classe * o parametro passado
+        * ou seja n = p * q
+        */
         n = p.multiply(q);
 
         //Compute a função totiente phi(n) = (p -1) (q -1)
